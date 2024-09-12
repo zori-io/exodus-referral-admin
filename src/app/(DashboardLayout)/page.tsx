@@ -1,7 +1,5 @@
 import ReferralUserTable from "../components/dashboard/ReferralUserTable";
 
-const page = () => {
+export default async function Page() {
   return <ReferralUserTable />;
-};
-
-export default page;
+}
