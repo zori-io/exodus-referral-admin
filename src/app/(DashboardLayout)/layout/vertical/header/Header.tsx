@@ -39,9 +39,8 @@ const Header = () => {
       >
         <Navbar
           fluid
-          className={`rounded-none bg-transparent dark:bg-transparent py-4 sm:px-30 px-4`}
+          className={`rounded-none bg-transparent dark:bg-transparent mt-0 py-3 md:py-0 sm:px-30 px-4`}
         >
-          {/* Mobile Toggle Icon */}
 
           <div className="flex gap-3 items-center justify-between w-full ">
             <div className="flex gap-2 items-center">
@@ -49,16 +48,8 @@ const Header = () => {
                 onClick={() => setIsOpen(true)}
                 className="h-10 w-10 flex text-black dark:text-white text-opacity-65 xl:hidden hover:text-primary hover:bg-lightprimary rounded-full justify-center items-center cursor-pointer"
               >
-                <Icon icon="solar:hamburger-menu-line-duotone" height={21} />
+                <Icon icon="solar:hamburger-menu-line-duotone" height={40} />
               </span>
-            </div>
-
-            <div className="flex gap-4 items-center">
-              <Icon
-                icon="solar:login-2-linear"
-                className="text-black block mx-auto mt-6 leading-6 hide-icon"
-                height={20}
-              />
             </div>
           </div>
         </Navbar>

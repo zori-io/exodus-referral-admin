@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useContext } from "react";
 import { Sidebar } from "flowbite-react";
 import SidebarContent from "./Sidebaritems";
 import NavItems from "./NavItems";
@@ -8,8 +8,22 @@ import NavCollapse from "./NavCollapse";
 import SimpleBar from "simplebar-react";
 import FullLogo from "../../shared/logo/FullLogo";
 import { Icon } from "@iconify/react";
+import authService from "@/appwrite/authConfig";
+import { useRouter } from "next/navigation";
+import { LoadingContext } from "@/store/LoadingContext";
 
 const SidebarLayout = () => {
+  const { setLoading } = useContext(LoadingContext);
+
+  const router = useRouter();
+
+  const Logout = async () => {
+    setLoading(true);
+    await authService.logout();
+    router.push("/auth/login");
+    setLoading(false);
+  };
+
   return (
     <>
       <div className="xl:block hidden">
@@ -35,7 +49,6 @@ const SidebarLayout = () => {
                         className="text-ld block mx-auto mt-6 leading-6 dark:text-opacity-60 hide-icon"
                         height={18}
                       />
-
                       {item.children?.map((child, index) => (
                         <React.Fragment key={child.id && index}>
                           {child.children ? (
@@ -51,6 +64,15 @@ const SidebarLayout = () => {
                   ))}
                 </Sidebar.ItemGroup>
               </Sidebar.Items>
+              <span
+                onClick={Logout}
+                className="flex cursor-pointer mt-10 p-5 gap-3 align-center items-center truncate"
+              >
+                <Icon icon="solar:login-2-linear" color="black" height={18} />
+                <span className="max-w-36  text-black overflow-hidden hide-menu">
+                  Logout
+                </span>
+              </span>
             </SimpleBar>
           </Sidebar>
         </div>

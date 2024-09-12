@@ -33,17 +33,17 @@ const SidebarContent: MenuItem[] = [
       },
     ],
   },
-  {
-    heading: "Auth",
-    children: [
-      {
-        name: "Login",
-        icon: "solar:login-2-linear",
-        id: uniqueId(),
-        url: "/auth/login",
-      },
-    ],
-  },
+  // {
+  //   heading: "Auth",
+  //   children: [
+  //     {
+  //       name: "Login",
+  //       icon: "solar:login-2-linear",
+  //       id: uniqueId(),
+  //       url: "/auth/login",
+  //     },
+  //   ],
+  // },
 ];
 
 export default SidebarContent;
