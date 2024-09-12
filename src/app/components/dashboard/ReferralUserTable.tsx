@@ -14,7 +14,7 @@ import {
   updateReferralStatusPayload,
 } from "@/utils/api/updateReferralStatus";
 import { deleteUser, deleteUserPayload } from "@/utils/api/deleteUser";
-import toast from "react-hot-toast";
+import { notify, notifyError } from "@/components/Toast";
 
 const ReferralUserTable = () => {
   const {
@@ -25,7 +25,6 @@ const ReferralUserTable = () => {
     queryKey: [COLLECTION.REFERRAL_COLLECTION],
     queryFn: async () => await getReferralUsers(),
   });
-  const notify = (message: string) => toast(message);
 
   const referralStatusMutation = useMutation({
     mutationFn: async ({ documentId, status }: updateReferralStatusPayload) => {
@@ -34,6 +33,9 @@ const ReferralUserTable = () => {
     onSuccess: () => {
       refetch();
       notify("Referral status updated successfully");
+    },
+    onError: () => {
+      notifyError("Something went wrong");
     },
   });
 
@@ -44,6 +46,9 @@ const ReferralUserTable = () => {
     onSuccess: () => {
       refetch();
       notify("User deleted successfully");
+    },
+    onError: () => {
+      notifyError("Something went wrong");
     },
   });
 
@@ -95,16 +100,15 @@ const ReferralUserTable = () => {
   }
 
   const visitorCount = allReferralUsers?.length || 0;
-  const visitorText = visitorCount === 1 ? "Visitor" : "Visitors";
+  const visitorText = visitorCount === 1 ? "User" : "Users";
 
   return (
     <>
       <div className="rounded-lg dark:shadow-dark-md shadow-md bg-white dark:bg-darkgray py-6 px-0 relative w-full break-words">
         <div className="px-6">
-          <h5 className="card-title">Users</h5>
-          <p className="card-subtitle">
-            Total {visitorCount} {visitorText}
-          </p>
+          <h5 className="card-title">
+            {visitorCount} {visitorText}
+          </h5>
         </div>
         <SimpleBar className="">
           <div className="overflow-x-auto">

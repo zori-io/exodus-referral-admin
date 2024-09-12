@@ -10,6 +10,7 @@ import { Icon } from "@iconify/react";
 import authService from "@/appwrite/authConfig";
 import { useRouter } from "next/navigation";
 import { LoadingContext } from "@/store/LoadingContext";
+import { notifyError } from "@/components/Toast";
 
 const MobileSidebar = () => {
   const { setLoading } = useContext(LoadingContext);
@@ -17,10 +18,14 @@ const MobileSidebar = () => {
   const router = useRouter();
 
   const Logout = async () => {
-    setLoading(true);
-    await authService.logout();
-    router.push("/auth/login");
-    setLoading(false);
+    try {
+      setLoading(true);
+      await authService.logout();
+      router.push("/auth/login");
+      setLoading(false);
+    } catch (error) {
+      notifyError("Something went wrong");
+    }
   };
   return (
     <>

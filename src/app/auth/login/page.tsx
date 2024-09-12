@@ -1,9 +1,11 @@
+"use client";
 import Logo from "@/app/(DashboardLayout)/layout/shared/logo/Logo";
 import AuthLogin from "../authforms/AuthLogin";
+import { LoadingProvider } from "@/store/LoadingContext";
 
 const BoxedLogin = () => {
   return (
-    <>
+    <LoadingProvider>
       <div className="relative overflow-hidden h-screen bg-muted dark:bg-dark">
         <div className="flex h-full justify-center items-center px-4">
           <div className="rounded-lg dark:shadow-dark-md shadow-md bg-white dark:bg-darkgray p-6 relative w-full break-words md:w-[450px] w-full border-none ">
@@ -19,7 +21,7 @@ const BoxedLogin = () => {
           </div>
         </div>
       </div>
-    </>
+    </LoadingProvider>
   );
 };
 

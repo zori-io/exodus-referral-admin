@@ -5,6 +5,7 @@ import "./css/globals.css";
 import { Flowbite, ThemeModeScript } from "flowbite-react";
 import customTheme from "@/utils/theme/custom-theme";
 import ReactQueryClientProvider from "@/components/ReactQueryClientProvider";
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,6 +27,7 @@ export default function RootLayout({
         </head>
         <body className={`${inter.className}`}>
           <Flowbite theme={{ theme: customTheme }}>{children}</Flowbite>
+          <Toaster />
         </body>
       </html>
     </ReactQueryClientProvider>

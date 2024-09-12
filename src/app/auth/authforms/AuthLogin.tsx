@@ -1,15 +1,14 @@
 "use client";
+
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Label, TextInput } from "flowbite-react";
-import Link from "next/link";
-import React, { useCallback, useContext } from "react";
+import { useCallback, useContext } from "react";
 import { LoginSchema } from "./LoginSchema";
 import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import authService from "@/appwrite/authConfig";
 import { useRouter } from "next/navigation";
 import { LoadingContext } from "@/store/LoadingContext";
-import { set } from "lodash";
 
 interface LoginFormFields {
   email: string;
@@ -33,7 +32,6 @@ const AuthLogin = () => {
 
   const loginMutation = useMutation({
     mutationFn: async (data: LoginFormFields) => {
-      setLoading(true);
       return await authService.signIn({
         email: data.email,
         password: data.password,
@@ -51,53 +49,55 @@ const AuthLogin = () => {
     },
   });
 
-  const submitRequest = useCallback((data: LoginFormFields) => {
-    loginMutation.mutate(data);
-  }, []);
+  const submitRequest = useCallback(
+    async (data: LoginFormFields) => {
+      setLoading(true);
+      loginMutation.mutate(data);
+    },
+    [loginMutation]
+  );
 
   return (
-    <>
-      <form onSubmit={handleSubmit(submitRequest)}>
-        <div className="mb-4">
-          <div className="mb-2 block">
-            <Label htmlFor="email" value="Email" />
-          </div>
-          <TextInput
-            id="username"
-            type="text"
-            sizing="md"
-            className="form-control"
-            {...register("email")}
-          />
-          <p className="text-red-700 text-xs my-1 h-5">
-            {errors?.email?.message}
-          </p>
+    <form onSubmit={handleSubmit(submitRequest)}>
+      <div className="mb-4">
+        <div className="mb-2 block">
+          <Label htmlFor="email" value="Email" />
         </div>
-        <div className="mb-4">
-          <div className="mb-2 block">
-            <Label htmlFor="userpwd" value="Password" />
-          </div>
-          <TextInput
-            id="userpwd"
-            type="password"
-            sizing="md"
-            className="form-control"
-            {...register("password")}
-          />
-          <p className="text-red-700 text-xs my-1 h-5">
-            {errors?.password?.message}
-          </p>
+        <TextInput
+          id="username"
+          type="text"
+          sizing="md"
+          className="form-control"
+          {...register("email")}
+        />
+        <p className="text-red-700 text-xs my-1 h-5">
+          {errors?.email?.message}
+        </p>
+      </div>
+      <div className="mb-4">
+        <div className="mb-2 block">
+          <Label htmlFor="userpwd" value="Password" />
         </div>
-        <Button
-          disabled={!isValid}
-          type="submit"
-          className="w-full mt-12 bg-black disabled:bg-gray-400"
-        >
-          Sign in
-        </Button>
-        <p className="text-red-700 text-xs my-1 h-5">{errors?.root?.message}</p>
-      </form>
-    </>
+        <TextInput
+          id="userpwd"
+          type="password"
+          sizing="md"
+          className="form-control"
+          {...register("password")}
+        />
+        <p className="text-red-700 text-xs my-1 h-5">
+          {errors?.password?.message}
+        </p>
+      </div>
+      <Button
+        disabled={!isValid}
+        type="submit"
+        className="w-full mt-12 bg-black disabled:bg-gray-400"
+      >
+        Sign in
+      </Button>
+      <p className="text-red-700 text-xs my-1 h-5">{errors?.root?.message}</p>
+    </form>
   );
 };
 
