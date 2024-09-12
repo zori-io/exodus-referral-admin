@@ -93,8 +93,15 @@ const ReferralUserTable = () => {
 
   if (isFetching) {
     return (
-      <div className="flex h-screen w-full justify-center items-center">
+      <div className="flex h-xs w-full justify-center items-center">
         <Spinner aria-label="spinner" size="xl" />
+      </div>
+    );
+  }
+  if (allReferralUsers?.length === 0) {
+    return (
+      <div className="flex h-xs w-full justify-center items-center">
+        <p className="text-lg">No user available</p>
       </div>
     );
   }

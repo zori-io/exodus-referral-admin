@@ -39,6 +39,9 @@ const config: Config = {
       margin: {
         "30": "30px",
       },
+      height: {
+        xs: "calc(100vh - 60px)",
+      },
 
       colors: {
         cyan: {
@@ -68,10 +71,6 @@ const config: Config = {
       },
     },
   },
-  plugins: [
-    //Add Flowbite Plugin
-
-    require("flowbite/plugin"),
-  ],
+  plugins: [require("flowbite/plugin")],
 };
 export default config;

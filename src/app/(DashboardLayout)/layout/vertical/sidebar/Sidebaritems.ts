@@ -23,7 +23,6 @@ import { uniqueId } from "lodash";
 
 const SidebarContent: MenuItem[] = [
   {
-    heading: "Dashboards",
     children: [
       {
         name: "Dashboard",
@@ -33,17 +32,6 @@ const SidebarContent: MenuItem[] = [
       },
     ],
   },
-  // {
-  //   heading: "Auth",
-  //   children: [
-  //     {
-  //       name: "Login",
-  //       icon: "solar:login-2-linear",
-  //       id: uniqueId(),
-  //       url: "/auth/login",
-  //     },
-  //   ],
-  // },
 ];
 
 export default SidebarContent;
