@@ -38,8 +38,8 @@ const AuthLogin = () => {
       });
     },
     onSuccess: () => {
-      router.push("/");
       setLoading(false);
+      router.push("/");
     },
     onError: (error) => {
       setLoading(false);
