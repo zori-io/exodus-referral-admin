@@ -1,6 +1,6 @@
 import { Client, Databases, Users } from "node-appwrite";
 
-let client = new Client();
+const client = new Client();
 
 client
   .setEndpoint(process.env.NEXT_PUBLIC_ENDPOINTS as string)
