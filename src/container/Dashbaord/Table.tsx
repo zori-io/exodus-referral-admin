@@ -24,8 +24,6 @@ const UserTable = () => {
     { enabled: false }
   );
 
-  console.log({ allReferralUsers });
-
   const deleteUserMutation = useMutation({
     mutationFn: async ({ documentId }: deleteUserPayload) => {
       await deleteUser({ documentId });

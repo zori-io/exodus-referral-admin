@@ -1,7 +1,10 @@
 import Logo from "@/components/logo/Logo";
-import AuthLogin from "@/container/Login/AuthLogin";
+import AuthLogin from "@/container/Login";
 
-export default function Layout() {
+import cookie from "cookie";
+import { GetServerSideProps } from "next";
+
+export default function LoginPage() {
   return (
     <div className="relative overflow-hidden h-screen bg-muted dark:bg-dark">
       <div className="flex h-full justify-center items-center px-4">
@@ -18,3 +21,22 @@ export default function Layout() {
     </div>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const cookies = cookie.parse(context.req.headers.cookie || "");
+
+  const adminToken = cookies.adminToken;
+
+  if (adminToken) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+};
