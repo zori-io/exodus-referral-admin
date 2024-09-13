@@ -18,8 +18,10 @@ const UserTable = () => {
     isFetching,
     isError,
     refetch,
-  } = useQuery<Models.Document[]>(["allReferralUsers"], () =>
-    getAllReferralUsers()
+  } = useQuery<Models.Document[]>(
+    ["allReferralUsers"],
+    () => getAllReferralUsers(),
+    { enabled: false }
   );
 
   console.log({ allReferralUsers });
@@ -84,7 +86,10 @@ const UserTable = () => {
 
   if (isFetching) {
     return (
-      <div className="flex h-xs w-full justify-center items-center ">
+      <div
+        style={{ height: "calc(100vh - 60px)" }}
+        className="flex h-xs w-full justify-center items-center "
+      >
         <Spinner aria-label="spinner" size="xl" />
       </div>
     );
@@ -93,7 +98,10 @@ const UserTable = () => {
   if (isError) {
     notifyError("Failed to fetch users. Please try again later.");
     return (
-      <div className="flex h-xs w-full justify-center items-center">
+      <div
+        style={{ height: "calc(100vh - 60px)" }}
+        className="flex h-xs w-full justify-center items-center"
+      >
         <p className="text-lg">Failed to load users</p>
       </div>
     );
@@ -101,7 +109,10 @@ const UserTable = () => {
 
   if (!allReferralUsers || allReferralUsers?.length === 0) {
     return (
-      <div className="flex h-xs w-full justify-center items-center">
+      <div
+        style={{ height: "calc(100vh - 60px)" }}
+        className="flex h-xs w-full justify-center items-center"
+      >
         <p className="text-lg">No user available</p>
       </div>
     );
@@ -120,10 +131,16 @@ const UserTable = () => {
         </div>
         <div className="flex flex-col">
           <div className="overflow-x-auto">
-            <div className="p-1.5 w-full h-table inline-block align-middle">
+            <div
+              style={{ maxHeight: "calc(100vh - 150px)" }}
+              className="p-1.5 w-full h-table inline-block align-middle"
+            >
               <div className=" divide-y divide-gray-200">
                 <div className="overflow-hidden">
-                  <table className="min-w-full divide-y divide-gray-200">
+                  <table
+                    style={{ minWidth: "100%" }}
+                    className="divide-y divide-gray-200"
+                  >
                     <thead className="bg-gray-50">
                       <tr>
                         {tabelHeading?.map((ele) => {

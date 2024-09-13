@@ -90,10 +90,13 @@ const AuthLogin = () => {
         </p>
       </div>
       <Button
-        color="black"
+        style={{
+          backgroundColor: isValid ? "black" : "gray",
+          marginTop: "40px",
+        }}
         disabled={!isValid}
         type="submit"
-        className="w-full bg-dark border-black mt-12"
+        className="w-full bg-dark border-black"
       >
         Sign in
       </Button>
