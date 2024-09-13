@@ -1,21 +1,16 @@
-import authService from "@/appwrite/authConfig";
-import { databases } from "@/models/config";
-import { COLLECTION, dbName } from "@/models/names";
+import axios from "axios";
 
 export interface deleteUserPayload {
   documentId: string;
 }
 
-export async function deleteUser({ documentId }: deleteUserPayload) {
+export const deleteUser = async ({ documentId }: deleteUserPayload) => {
   try {
-    const deletedUser = await databases.deleteDocument(
-      dbName,
-      COLLECTION.REFERRAL_COLLECTION,
-      documentId
-    );
-    return deletedUser;
-  } catch (error: any) {
-    console.error(error);
-    return null;
+    const response = await axios.post("/api/referrals-delete", {
+      documentId,
+    });
+    return response.data;
+  } catch (error) {
+    return { error: "Failed to delete user" };
   }
-}
+};

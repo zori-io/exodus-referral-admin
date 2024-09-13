@@ -1,15 +1,10 @@
-import { databases } from "@/models/config";
-import { COLLECTION, dbName } from "@/models/names";
+import axios from "axios";
 
-export async function getReferralUsers() {
+export const getReferralUsers = async () => {
   try {
-    const referralUsers = await databases.listDocuments(
-      dbName,
-      COLLECTION.REFERRAL_COLLECTION
-    );
-    return referralUsers.documents;
-  } catch (error: any) {
-    console.error(error);
-    return null;
+    const response = await axios.get("/api/referrals");
+    return response.data;
+  } catch (error) {
+    return { error: "Failed to fetch users" };
   }
-}
+};

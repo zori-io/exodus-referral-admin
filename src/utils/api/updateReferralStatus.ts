@@ -1,27 +1,21 @@
-import { databases } from "@/models/config";
-import { COLLECTION, dbName } from "@/models/names";
+import axios from "axios";
 
 export interface updateReferralStatusPayload {
   documentId: string;
   status: boolean;
 }
 
-export async function updateReferralStatus({
+export const updateReferralStatus = async ({
   documentId,
   status,
-}: updateReferralStatusPayload) {
+}: updateReferralStatusPayload) => {
   try {
-    const updatedReferralUsers = await databases.updateDocument(
-      dbName,
-      COLLECTION.REFERRAL_COLLECTION,
+    const response = await axios.post("/api/referrals-update", {
       documentId,
-      {
-        isReferralEnabled: status,
-      }
-    );
-    return updatedReferralUsers.documents;
-  } catch (error: any) {
-    console.error(error);
-    return null;
+      status,
+    });
+    return response.data;
+  } catch (error) {
+    return { error: "Failed to update referral status" };
   }
-}
+};

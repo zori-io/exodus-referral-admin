@@ -41,6 +41,7 @@ const config: Config = {
       },
       height: {
         xs: "calc(100vh - 60px)",
+        table: "calc(100vh - 150px)",
       },
 
       colors: {
