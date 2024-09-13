@@ -1,10 +1,18 @@
 import axios from "axios";
 
-export const getReferralUsers = async () => {
+export const getAllReferralUsers = async (baseUrl?: string) => {
   try {
-    const response = await axios.get("/api/referrals");
-    return response.data;
+    const url = baseUrl ? `${baseUrl}/api/referrals` : "/api/referrals";
+
+    const response = await axios.get(url);
+
+    if (Array.isArray(response.data)) {
+      return response.data;
+    } else {
+      return [];
+    }
   } catch (error) {
-    return { error: "Failed to fetch users" };
+    console.error("Error fetching referral users:", error);
+    return [];
   }
 };

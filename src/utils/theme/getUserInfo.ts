@@ -8,7 +8,7 @@ export async function getReferralUsers() {
       COLLECTION.REFERRAL_COLLECTION
     );
     return referralUsers.documents;
-  } catch (error: any) {
+  } catch (error) {
     console.error(error);
     return null;
   }
