@@ -1,18 +1,43 @@
-import { Spinner, ToggleSwitch } from "flowbite-react";
-import { Icon } from "@iconify/react";
+import { useCallback } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
+import { Spinner, ToggleSwitch } from "flowbite-react";
+import { Icon } from "@iconify/react";
+import { notify, notifyError } from "@/components/Toast";
+
 import { Models } from "appwrite";
-import { deleteUser, deleteUserPayload } from "@/utils/api/deleteUser";
+
 import {
   updateReferralStatus,
-  updateReferralStatusPayload,
+  referralStatusPayload,
 } from "@/utils/api/updateReferralStatus";
-import { notify, notifyError } from "@/components/Toast";
+
 import { getAllReferralUsers } from "@/utils/api/getUserInfo";
-import { useCallback } from "react";
+import { sendApprovalEmail } from "@/utils/api/sendApprovalEmail";
+import { deleteUser, deleteUserPayload } from "@/utils/api/deleteUser";
 
 const UserTable = () => {
+  const handleSendApprovalEmail = async ({
+    email,
+    approved,
+    firstName,
+    lastName,
+  }: referralStatusPayload) => {
+    if (approved === true) {
+      try {
+        await sendApprovalEmail({
+          email,
+          approved,
+          firstName,
+          lastName,
+        });
+        notify("Approval email sent successfully to the user.");
+      } catch (error) {
+        console.error("Error sending  email", error);
+      }
+    }
+  };
+
   const {
     data: allReferralUsers = [],
     isFetching,
@@ -35,15 +60,24 @@ const UserTable = () => {
   });
 
   const referralStatusMutation = useMutation({
-    mutationFn: async ({ documentId, status }: updateReferralStatusPayload) => {
-      await updateReferralStatus({ documentId, status });
+    mutationFn: async ({ documentId, status }: referralStatusPayload) => {
+      await updateReferralStatus({
+        documentId,
+        status,
+      });
     },
-    onSuccess: () => {
+    onSuccess: async (_, { status, email, firstName, lastName }) => {
       refetch();
-      notify("Referral status updated successfully");
+
+      await handleSendApprovalEmail({
+        email,
+        approved: status,
+        firstName,
+        lastName,
+      });
     },
     onError: () => {
-      notifyError("Something went wrong");
+      notifyError("Something went wrong updating the referral status.");
     },
   });
 
@@ -55,8 +89,20 @@ const UserTable = () => {
   );
 
   const handleCheckboxChange = useCallback(
-    async ({ documentId, status }: updateReferralStatusPayload) => {
-      referralStatusMutation.mutate({ documentId, status });
+    async ({
+      documentId,
+      status,
+      email,
+      firstName,
+      lastName,
+    }: referralStatusPayload) => {
+      referralStatusMutation.mutate({
+        documentId,
+        status,
+        email,
+        firstName,
+        lastName,
+      });
     },
     [referralStatusMutation]
   );
@@ -180,6 +226,9 @@ const UserTable = () => {
                                     handleCheckboxChange({
                                       documentId: ele.$id,
                                       status: !ele.isReferralEnabled,
+                                      email: ele.email,
+                                      firstName: ele.firstName,
+                                      lastName: ele.lastName,
                                     })
                                   }
                                 />
