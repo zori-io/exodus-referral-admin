@@ -1,3 +1,1 @@
-import EmailTemplate from "./EmailTemplate";
-
-export default EmailTemplate;
+export { default } from "./EmailTemplate";

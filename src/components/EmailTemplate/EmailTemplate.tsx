@@ -1,72 +1,167 @@
-import { Html, Container } from "@react-email/components";
-import React from "react";
-import Logo from "../logo/Logo";
-import Link from "next/link";
-import Image from "next/image";
-import LogoIcon from "/public/images/logos/logo-icon.svg";
-import { Icon } from "@iconify/react";
+import {
+  Html,
+  Container,
+  Section,
+  Row,
+  Column,
+  Img,
+  Text,
+} from "@react-email/components";
 
-const EmailTemplate = ({
-  firstName = "First Name",
-  lastName = "Last Name",
+import Link from "next/link";
+
+interface EmailTemplateProps {
+  firstName: string;
+  lastName: string;
+}
+
+const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
+  firstName,
+  lastName,
 }) => {
   return (
     <Html>
-      <Container className="bg-white">
-        <div className="p-8">
-          <div className="p-6">
-            <Logo />
+      <Container style={{ backgroundColor: "#ffffff" }}>
+        <div style={{ padding: "32px 0" }}>
+          <div style={{ padding: "24px 0" }}>
+            <Img
+              src="https://cloud.appwrite.io/v1/storage/buckets/66e668600018b0900563/files/66e6687d0007ccf5afaf/view?project=66decf5700255f351361&project=66decf5700255f351361&mode=admin"
+              alt="Zori Exodus Logo"
+              width="32"
+              height="32"
+            />
           </div>
 
-          <div className="py-8 px-6">
-            <p className="text-base text-gray-600">
+          <div style={{ padding: "32px 0" }}>
+            <Text style={{ fontSize: "16px", color: "#4B5563" }}>
               Dear Mr. {firstName} {lastName},
-            </p>
+            </Text>
 
-            <p className="text-base mt-4 text-gray-600">
+            <Text
+              style={{
+                fontSize: "16px",
+                marginTop: "16px",
+                color: "#4B5563",
+              }}
+            >
               Your ZORI Exodus referral account has been approved! Click the
               button below to Log In and start inviting your friends. To learn
               more about your rewards when you successfully invite friends,
               click the ‘Learn More’ button.
-            </p>
+            </Text>
 
-            <div className="flex py-6 gap-3">
-              <Link
-                className="bg-black text-white text-base font-semibold  py-[10px] px-[18px] rounded-sm"
-                href="your-login-url"
-              >
-                Log In
-              </Link>
-              <Link
-                className="bg-black text-white text-base font-semibold  py-[10px] px-[18px] rounded-sm"
-                href="your-learnmore-url"
-              >
-                Learn More
-              </Link>
-            </div>
+            <Section
+              style={{
+                marginTop: "40px",
+                marginBottom: "40px",
+              }}
+            >
+              <Row>
+                <Column>
+                  <Link
+                    href="https://zori-exodus-referral.vercel.app/login"
+                    style={{
+                      backgroundColor: "#000000",
+                      color: "#ffffff",
+                      fontSize: "16px",
+                      fontWeight: "600",
+                      padding: "10px 18px",
+                      borderRadius: "8px",
+                      textDecoration: "none",
+                      height: "44px",
+                    }}
+                  >
+                    Log In
+                  </Link>
+                </Column>
+                <Column>
+                  <Link
+                    href="your-learnmore-url"
+                    style={{
+                      backgroundColor: "#000000",
+                      color: "#ffffff",
+                      fontSize: "16px",
+                      fontWeight: "600",
+                      padding: "10px 18px",
+                      borderRadius: "8px",
+                      textDecoration: "none",
+                      height: "44px",
+                    }}
+                  >
+                    Learn More
+                  </Link>
+                </Column>
+              </Row>
+            </Section>
 
-            <p className="text-base text-gray-600">
+            <p style={{ fontSize: "16px", color: "#4B5563" }}>
               Thank You,
               <br />
               The ZORI Exodus Team
             </p>
           </div>
 
-          <div className="py-8 px-6">
-            <p className="text-sm text-gray-600 mb-12">© 2024 ZORI K.K</p>
+          <div style={{ padding: "20px 0" }}>
+            <p
+              style={{
+                fontSize: "14px",
+                color: "#4B5563",
+                marginBottom: "48px",
+              }}
+            >
+              © 2024 ZORI K.K
+            </p>
 
-            <div className="flex justify-between">
-              <Image src={LogoIcon} className="w-5 ms-4" alt="logo" />
-              <div className="flex gap-4">
-                <Icon
-                  color="#A3A3A3"
-                  icon="akar-icons:twitter-fill"
-                  height={20}
-                />
-                <Icon color="#A3A3A3" icon="bi:facebook" height={20} />
-                <Icon color="#A3A3A3" icon="iconoir:instagram" height={20} />
-              </div>
-            </div>
+            <Section
+              style={{
+                marginLeft: "10px",
+              }}
+            >
+              <Row>
+                <Column className="w-[80%]">
+                  <Img
+                    alt="Zori Exodus Logo"
+                    height="20"
+                    width="20"
+                    src="https://cloud.appwrite.io/v1/storage/buckets/66e668600018b0900563/files/66e6687d0007ccf5afaf/view?project=66decf5700255f351361&project=66decf5700255f351361&mode=admin"
+                  />
+                </Column>
+                <Column align="right">
+                  <Row align="right">
+                    <Column>
+                      <Link href="#" className="mr-[16px]">
+                        <Img
+                          alt="Instagram"
+                          height="20"
+                          width="20"
+                          src="https://cloud.appwrite.io/v1/storage/buckets/66e668600018b0900563/files/66e6689300301dd48cd3/view?project=66decf5700255f351361&project=66decf5700255f351361&mode=admin"
+                        />
+                      </Link>
+                    </Column>
+                    <Column>
+                      <Link href="#" className="mr-[16px]">
+                        <Img
+                          alt="Twitter"
+                          height="20"
+                          width="20"
+                          src="https://cloud.appwrite.io/v1/storage/buckets/66e668600018b0900563/files/66e668a5001f4326c2f3/view?project=66decf5700255f351361&project=66decf5700255f351361&mode=admin"
+                        />
+                      </Link>
+                    </Column>
+                    <Column>
+                      <Link href="#" className="mr-[16px]">
+                        <Img
+                          alt="Facebook"
+                          height="20"
+                          width="20"
+                          src="https://cloud.appwrite.io/v1/storage/buckets/66e668600018b0900563/files/66e6688a0039d7ec6a86/view?project=66decf5700255f351361&project=66decf5700255f351361&mode=admin"
+                        />
+                      </Link>
+                    </Column>
+                  </Row>
+                </Column>
+              </Row>
+            </Section>
           </div>
         </div>
       </Container>

@@ -1,14 +1,18 @@
 import axios from "axios";
 
-export interface updateReferralStatusPayload {
-  documentId: string;
-  status: boolean;
+export interface referralStatusPayload {
+  documentId?: string;
+  status?: boolean;
+  email?: string;
+  firstName?: string;
+  lastName?: string;
+  approved?: boolean;
 }
 
 export const updateReferralStatus = async ({
   documentId,
   status,
-}: updateReferralStatusPayload) => {
+}: referralStatusPayload) => {
   try {
     const response = await axios.post("/api/referrals-update", {
       documentId,
