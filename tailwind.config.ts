@@ -6,8 +6,6 @@ const config: Config = {
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-
-    // Flowbite content
     flowbite.content(),
   ],
   theme: {
@@ -69,6 +67,15 @@ const config: Config = {
         dark: "var(--color-dark)",
         link: "var(--color-link)",
         darklink: "var(--color-darklink)",
+      },
+      animation: {
+        spin: "spin 1s linear infinite",
+      },
+      keyframes: {
+        spin: {
+          "0%": { transform: "rotate(0deg)" },
+          "100%": { transform: "rotate(360deg)" },
+        },
       },
     },
   },
