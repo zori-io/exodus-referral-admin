@@ -6,6 +6,7 @@ import {
   Column,
   Img,
   Text,
+  Button,
 } from "@react-email/components";
 
 import Link from "next/link";
@@ -21,7 +22,7 @@ const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
 }) => {
   return (
     <Html>
-      <Container style={{ backgroundColor: "#ffffff" }}>
+      <Container style={{ backgroundColor: "#ffffff", padding: "32px" }}>
         <div style={{ padding: "32px 0" }}>
           <div style={{ padding: "24px 0" }}>
             <Img
@@ -33,7 +34,7 @@ const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
           </div>
 
           <div style={{ padding: "32px 0" }}>
-            <Text style={{ fontSize: "16px", color: "#4B5563" }}>
+            <Text style={{ fontSize: "16px", marginTop: 0, color: "#525252" }}>
               Dear Mr. {firstName} {lastName},
             </Text>
 
@@ -41,7 +42,8 @@ const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
               style={{
                 fontSize: "16px",
                 marginTop: "16px",
-                color: "#4B5563",
+                marginBottom: 0,
+                color: "#525252",
               }}
             >
               Your ZORI Exodus referral account has been approved! Click the
@@ -52,45 +54,40 @@ const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
 
             <Section
               style={{
-                marginTop: "40px",
-                marginBottom: "40px",
+                marginTop: "24px",
+                marginBottom: "24px",
               }}
             >
               <Row>
-                <Column>
-                  <Link
-                    href="https://zori-exodus-referral.vercel.app/login"
-                    style={{
-                      backgroundColor: "#000000",
-                      color: "#ffffff",
-                      fontSize: "16px",
-                      fontWeight: "600",
-                      padding: "10px 18px",
-                      borderRadius: "8px",
-                      textDecoration: "none",
-                      height: "44px",
-                    }}
-                  >
-                    Log In
-                  </Link>
-                </Column>
-                <Column>
-                  <Link
-                    href="your-learnmore-url"
-                    style={{
-                      backgroundColor: "#000000",
-                      color: "#ffffff",
-                      fontSize: "16px",
-                      fontWeight: "600",
-                      padding: "10px 18px",
-                      borderRadius: "8px",
-                      textDecoration: "none",
-                      height: "44px",
-                    }}
-                  >
-                    Learn More
-                  </Link>
-                </Column>
+                <Button
+                  href="https://zori-exodus-referral.vercel.app/login"
+                  style={{
+                    backgroundColor: "#000000",
+                    color: "#FDFDFD",
+                    fontSize: "16px",
+                    fontWeight: "600",
+                    padding: "10px 18px",
+                    borderRadius: "8px",
+                    textDecoration: "none",
+                    marginRight: "11px",
+                  }}
+                >
+                  Log In
+                </Button>
+                <Button
+                  href="your-learnmore-url"
+                  style={{
+                    backgroundColor: "#000000",
+                    color: "#FDFDFD",
+                    fontSize: "16px",
+                    fontWeight: "600",
+                    padding: "10px 18px",
+                    borderRadius: "8px",
+                    textDecoration: "none",
+                  }}
+                >
+                  Learn More
+                </Button>
               </Row>
             </Section>
 
@@ -100,8 +97,7 @@ const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
               The ZORI Exodus Team
             </p>
           </div>
-
-          <div style={{ padding: "20px 0" }}>
+          <div style={{ padding: "32px 0" }}>
             <p
               style={{
                 fontSize: "14px",
@@ -112,13 +108,9 @@ const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
               © 2024 ZORI K.K
             </p>
 
-            <Section
-              style={{
-                marginLeft: "10px",
-              }}
-            >
+            <Section>
               <Row>
-                <Column className="w-[80%]">
+                <Column style={{ width: "75%" }} align="left">
                   <Img
                     alt="Zori Exodus Logo"
                     height="20"
@@ -126,10 +118,10 @@ const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
                     src="https://cloud.appwrite.io/v1/storage/buckets/66e668600018b0900563/files/66e6687d0007ccf5afaf/view?project=66decf5700255f351361&project=66decf5700255f351361&mode=admin"
                   />
                 </Column>
-                <Column align="right">
+                <Column style={{ width: "25%" }} align="right">
                   <Row align="right">
-                    <Column>
-                      <Link href="#" className="mr-[16px]">
+                    <Column align="center">
+                      <Link href="#">
                         <Img
                           alt="Instagram"
                           height="20"
@@ -138,8 +130,8 @@ const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
                         />
                       </Link>
                     </Column>
-                    <Column>
-                      <Link href="#" className="mr-[16px]">
+                    <Column align="center">
+                      <Link href="#">
                         <Img
                           alt="Twitter"
                           height="20"
@@ -148,8 +140,8 @@ const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
                         />
                       </Link>
                     </Column>
-                    <Column>
-                      <Link href="#" className="mr-[16px]">
+                    <Column align="center">
+                      <Link href="#">
                         <Img
                           alt="Facebook"
                           height="20"

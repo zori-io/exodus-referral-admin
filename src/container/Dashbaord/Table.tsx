@@ -11,8 +11,30 @@ import {
 import { notify, notifyError } from "@/components/Toast";
 import { getAllReferralUsers } from "@/utils/api/getUserInfo";
 import { useCallback } from "react";
+import { sendApprovalEmail } from "@/utils/api/sendApprovalEmail";
 
 const ReferralUserTable = () => {
+  const handleSendApprovalEmail = async ({
+    email,
+    approved,
+    firstName,
+    lastName,
+  }: referralStatusPayload) => {
+    if (approved === true) {
+      try {
+        await sendApprovalEmail({
+          email,
+          approved,
+          firstName,
+          lastName,
+        });
+        notify("Approval email sent successfully to the user.");
+      } catch (error) {
+        console.error("Error sending  email", error);
+      }
+    }
+  };
+
   const {
     data: allReferralUsers = [],
     isFetching,
@@ -36,14 +58,23 @@ const ReferralUserTable = () => {
 
   const referralStatusMutation = useMutation({
     mutationFn: async ({ documentId, status }: referralStatusPayload) => {
-      await updateReferralStatus({ documentId, status });
+      await updateReferralStatus({
+        documentId,
+        status,
+      });
     },
-    onSuccess: () => {
+    onSuccess: async (_, { status, email, firstName, lastName }) => {
       refetch();
-      notify("Referral status updated successfully");
+
+      await handleSendApprovalEmail({
+        email,
+        approved: status,
+        firstName,
+        lastName,
+      });
     },
     onError: () => {
-      notifyError("Something went wrong");
+      notifyError("Something went wrong updating the referral status.");
     },
   });
 
@@ -55,8 +86,20 @@ const ReferralUserTable = () => {
   );
 
   const handleCheckboxChange = useCallback(
-    async ({ documentId, status }: referralStatusPayload) => {
-      referralStatusMutation.mutate({ documentId, status });
+    async ({
+      documentId,
+      status,
+      email,
+      firstName,
+      lastName,
+    }: referralStatusPayload) => {
+      referralStatusMutation.mutate({
+        documentId,
+        status,
+        email,
+        firstName,
+        lastName,
+      });
     },
     [referralStatusMutation]
   );
@@ -185,6 +228,9 @@ const ReferralUserTable = () => {
                                         handleCheckboxChange({
                                           documentId: ele.$id,
                                           status: !ele.isReferralEnabled,
+                                          email: ele.email,
+                                          firstName: ele.firstName,
+                                          lastName: ele.lastName,
                                         })
                                       }
                                     />
