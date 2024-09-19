@@ -35,7 +35,7 @@ const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
 
           <div style={{ padding: "32px 0" }}>
             <Text style={{ fontSize: "16px", marginTop: 0, color: "#525252" }}>
-              {firstName} {lastName} 様
+              こんにちは {lastName} {firstName}
             </Text>
 
             <Text
