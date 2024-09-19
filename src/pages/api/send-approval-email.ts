@@ -14,7 +14,7 @@ const sendApprovalEmail = async (req: NextApiRequest, res: NextApiResponse) => {
   if (approved) {
     try {
       const data = await resend.emails.send({
-        from: "himanshugupta@zori.io",
+        from: "exodus@zori.io",
         to: [email],
         subject: "Your account is approved!",
         react: EmailTemplate({ firstName: firstName, lastName: lastName }),
