@@ -35,7 +35,19 @@ const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
 
           <div style={{ padding: "32px 0" }}>
             <Text style={{ fontSize: "16px", marginTop: 0, color: "#525252" }}>
-              Dear Mr. {firstName} {lastName},
+              {firstName} {lastName} 様
+            </Text>
+
+            <Text
+              style={{
+                fontSize: "16px",
+                marginTop: "16px",
+                marginBottom: 0,
+                color: "#525252",
+              }}
+            >
+              あなたのZORI
+              Exodus紹介アカウントが承認されました！下のボタンからログインし、あなたの仲間を招待してください。あなたのお友達が入会した後に付与される「リワード」について詳しく知りたい場合は、下の「リワードについて」のボタンをクリックしてご確認ください。
             </Text>
 
             <Text
@@ -69,10 +81,10 @@ const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
                     padding: "10px 18px",
                     borderRadius: "8px",
                     textDecoration: "none",
-                    marginRight: "11px",
+                    marginRight: "32px",
                   }}
                 >
-                  Log In
+                  ログイン
                 </Button>
                 <Button
                   href="your-learnmore-url"
@@ -86,15 +98,13 @@ const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
                     textDecoration: "none",
                   }}
                 >
-                  Learn More
+                  リワードについて
                 </Button>
               </Row>
             </Section>
 
             <p style={{ fontSize: "16px", color: "#4B5563" }}>
-              Thank You,
-              <br />
-              The ZORI Exodus Team
+              ZORI Exodusチーム / The ZORI Exodus Team
             </p>
           </div>
           <div style={{ padding: "32px 0" }}>
